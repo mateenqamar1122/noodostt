@@ -33,11 +33,11 @@ import spicyRocketImg from "@/assets/spicy-rocket.png";
 import worldChickenImg from "@/assets/world-chicken.jpg";
 import worldBeefImg from "@/assets/world-beef.jpg";
 import worldSpicyImg from "@/assets/world-spicy.jpg";
-import productChickenImg from "@/assets/product-chicken.png";
-import productBeefImg from "@/assets/product-beef.png";
 import productSpicyImg from "@/assets/product-spicy.png";
-import noodostChickenAsset from "@/assets/noodost-spicy-chicken.png.asset.json";
-import noodostBeefAsset from "@/assets/noodost-spicy-beef.png.asset.json";
+// import noodostChickenAsset from "@/assets/noodost-spicy-chicken.png.asset.json";
+// import noodostBeefAsset from "@/assets/noodost-spicy-beef.png.asset.json";
+import noodostChickenAsset from "@/assets/noodost-spicy-chicken.png";
+import noodostBeefAsset from "@/assets/noodost-spicy-beef.png";
 
 export const FLAVORS: Record<FlavorSlug, Flavor> = {
   chicken: {
@@ -72,7 +72,7 @@ export const FLAVORS: Record<FlavorSlug, Flavor> = {
   },
   spicy: {
     slug: "spicy",
-    name: "Spicy Rocket",
+    name: "2X Spicy Rocket",
     tagline: "Volcano Blast",
     world: "Lava Island",
     description: "Energetic, fiery, and playful. Launches your taste buds straight to flavor space.",
@@ -90,11 +90,11 @@ export const FLAVORS: Record<FlavorSlug, Flavor> = {
 export const FLAVOR_LIST: Flavor[] = [FLAVORS.chicken, FLAVORS.beef, FLAVORS.spicy];
 
 export const PRODUCTS: Product[] = [
-  { slug: "spicy-chicken-noodles", flavor: "chicken", name: "Spicy Chicken Noodles", blurb: "Instant rich chicken flavour noodles — ready in 3 minutes. 80g pack.", price: 50, image: noodostChickenAsset.url, badge: "Most Loved" },
-  { slug: "spicy-beef-noodles", flavor: "beef", name: "Spicy Beef Noodles", blurb: "Instant rich beef flavour noodles — ready in 3 minutes. 80g pack.", price: 50, image: noodostBeefAsset.url, badge: "New" },
-  { slug: "chicken-family-pack", flavor: "chicken", name: "Spicy Chicken Family Pack", blurb: "A family-size bundle of our chicken noodles.", price: 280, image: noodostChickenAsset.url, comingSoon: true },
-  { slug: "beef-family-pack", flavor: "beef", name: "Spicy Beef Family Pack", blurb: "Boss-level savoury noodles in a family bundle.", price: 280, image: noodostBeefAsset.url, comingSoon: true },
-  { slug: "rocket-fuel-cup", flavor: "spicy", name: "Spicy Masala Noodles", blurb: "Three-alarm spice with a smoky finish.", price: 60, image: productSpicyImg, comingSoon: true },
+  { slug: "spicy-chicken-noodles", flavor: "chicken", name: "Spicy Chicken Noodles", blurb: "Instant rich chicken flavour noodles — ready in 3 minutes. 80g pack.", price: 80, image: noodostChickenAsset, badge: "Most Loved" },
+  { slug: "spicy-beef-noodles", flavor: "beef", name: "Spicy Beef Noodles", blurb: "Instant rich beef flavour noodles — ready in 3 minutes. 80g pack.", price: 80, image: noodostBeefAsset, badge: "New" },
+  { slug: "chicken-family-pack", flavor: "chicken", name: "Spicy Chicken Family Pack", blurb: "A family-size bundle of our chicken noodles.", price: 280, image: noodostChickenAsset, comingSoon: true },
+  { slug: "beef-family-pack", flavor: "beef", name: "Spicy Beef Family Pack", blurb: "Boss-level savoury noodles in a family bundle.", price: 280, image: noodostBeefAsset, comingSoon: true },
+  { slug: "rocket-fuel-cup", flavor: "spicy", name: "2X Spicy Masala Noodles", blurb: "Three-alarm spice with a smoky finish.", price: 60, image: productSpicyImg, comingSoon: true },
   { slug: "volcano-mega-pack", flavor: "spicy", name: "Volcano Mega Pack", blurb: "Six bowls of fiery, slurpable adventure.", price: 320, image: productSpicyImg, comingSoon: true },
 ];
 

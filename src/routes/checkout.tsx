@@ -15,15 +15,19 @@ function Checkout() {
   const clear = useCart((s) => s.clear);
   const { subtotal, shipping, total, count } = cartTotals(items);
   const [submitting, setSubmitting] = useState(false);
+  const [payMethod, setPayMethod] = useState<"card" | "cod">("cod");
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [orderName, setOrderName] = useState("Slurper");
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const name = String(formData.get("name") || "Slurper");
+    setOrderName(name);
     setSubmitting(true);
     setTimeout(() => {
-      clear();
-      navigate({ to: "/order-confirmation", search: { name, total: String(Math.round(total)) } });
+      setSubmitting(false);
+      setShowSuccess(true);
     }, 700);
   };
 
@@ -58,11 +62,31 @@ function Checkout() {
             </Fieldset>
 
             <Fieldset title="How to pay?">
-              <Input name="card" label="Card number" placeholder="4242 4242 4242 4242" required />
-              <div className="grid gap-4 sm:grid-cols-2">
-                <Input name="exp" label="Expiry" placeholder="MM/YY" required />
-                <Input name="cvc" label="CVC" placeholder="123" required />
+              <div className="grid gap-3 sm:grid-cols-2">
+                <PayOption
+                  active={payMethod === "cod"}
+                  onClick={() => setPayMethod("cod")}
+                  icon="💵"
+                  title="Cash on Delivery"
+                  desc="Pay when your bowl arrives"
+                />
+                <PayOption
+                  active={payMethod === "card"}
+                  onClick={() => setPayMethod("card")}
+                  icon="💳"
+                  title="Credit / Debit Card"
+                  desc="Pay securely online"
+                />
               </div>
+              {payMethod === "card" && (
+                <div className="space-y-4 pt-2">
+                  <Input name="card" label="Card number" placeholder="4242 4242 4242 4242" required />
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    <Input name="exp" label="Expiry" placeholder="MM/YY" required />
+                    <Input name="cvc" label="CVC" placeholder="123" required />
+                  </div>
+                </div>
+              )}
             </Fieldset>
 
             <button
@@ -103,6 +127,31 @@ function Checkout() {
           </aside>
         </div>
       </div>
+      {showSuccess && (
+        <div className="fixed inset-0 z-50 grid place-items-center bg-ink/60 backdrop-blur-sm p-4">
+          <div className="w-full max-w-md rounded-[2rem] border-4 border-white bg-cream p-8 text-center chunky-shadow-ink animate-in zoom-in-95 duration-300">
+            <div className="mx-auto mb-4 grid size-20 place-items-center rounded-full bg-chicken/20 text-5xl animate-wiggle">🎉</div>
+            <h2 className="font-display text-3xl font-bold text-chicken-dark">Order Placed!</h2>
+            <p className="mt-2 text-ink/70">
+              Thank you, <span className="font-bold">{orderName}</span>! Your slurpable bowls are on the way.
+            </p>
+            {payMethod === "cod" && (
+              <p className="mt-3 rounded-2xl bg-white px-4 py-3 text-sm font-bold text-ink">
+                💵 Please keep {formatPKR(total)} ready for our delivery rider.
+              </p>
+            )}
+            <button
+              onClick={() => {
+                clear();
+                navigate({ to: "/order-confirmation", search: { name: orderName, total: String(Math.round(total)) } });
+              }}
+              className="mt-6 w-full rounded-2xl bg-chicken-dark py-4 font-display text-lg font-bold text-white chunky-shadow-ink transition-transform active:translate-y-1"
+            >
+              Awesome! →
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
@@ -113,6 +162,25 @@ function Fieldset({ title, children }: { title: string; children: React.ReactNod
       <h2 className="mb-4 font-display text-xl font-bold">{title}</h2>
       <div className="space-y-4">{children}</div>
     </div>
+  );
+}
+
+function PayOption({ active, onClick, icon, title, desc }: { active: boolean; onClick: () => void; icon: string; title: string; desc: string }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={`flex items-start gap-3 rounded-2xl border-2 p-4 text-left transition ${active ? "border-chicken-dark bg-chicken-soft chunky-shadow-ink" : "border-chicken-soft bg-cream hover:border-chicken"}`}
+    >
+      <span className="text-2xl">{icon}</span>
+      <span className="flex-1">
+        <span className="block font-display font-bold">{title}</span>
+        <span className="block text-xs text-ink/60">{desc}</span>
+      </span>
+      <span className={`mt-1 grid size-5 shrink-0 place-items-center rounded-full border-2 ${active ? "border-chicken-dark bg-chicken-dark" : "border-ink/30"}`}>
+        {active && <span className="size-2 rounded-full bg-white" />}
+      </span>
+    </button>
   );
 }
 

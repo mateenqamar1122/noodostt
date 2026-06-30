@@ -32,8 +32,8 @@ function Index() {
               🌟 New Adventure Awaits
             </span>
             <h1 className="mt-6 font-display text-6xl font-bold leading-[0.95] tracking-tight text-ink md:text-7xl lg:text-8xl">
-              Slurp Into <br />
-              <span className="text-chicken-dark">Magic</span>
+              Enjoy exciting Flavors <br />
+              <span className="text-chicken-dark">with Noodost</span>
               <span className="inline-block animate-wiggle">.</span>
             </h1>
             <p className="mx-auto mt-6 max-w-md text-lg text-ink/70 lg:mx-0">
