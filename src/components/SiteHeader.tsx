@@ -1,11 +1,21 @@
 import { Link } from "@tanstack/react-router";
-import { ShoppingBasket } from "lucide-react";
+// import { ShoppingBasket } from "lucide-react";
 import { useCart } from "@/lib/cart-store";
 import Logo from "../assets/logo.svg";
+import { ShoppingBasket, ShieldCheck } from "lucide-react";
+import { useEffect, useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
+
 
 export function SiteHeader() {
   const count = useCart((s) => s.items.reduce((n, i) => n + i.qty, 0));
   const open = useCart((s) => s.open);
+  const [signedIn, setSignedIn] = useState(false);
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data }) => setSignedIn(!!data.session));
+    const { data: sub } = supabase.auth.onAuthStateChange((_e, s) => setSignedIn(!!s));
+    return () => sub.subscription.unsubscribe();
+  }, []);
 
   return (
     <header className="sticky top-0 z-40 px-4 pt-4 sm:px-6">
@@ -18,6 +28,12 @@ export function SiteHeader() {
     className="h-20 w-20"
   />
 </Link>
+{signedIn && (
+            <Link to="/admin" className="inline-flex items-center gap-1 text-chicken-dark transition-colors hover:text-ink">
+              <ShieldCheck className="size-4" /> Admin
+            </Link>
+          )}
+
 
         <nav className="hidden items-center gap-7 font-semibold text-ink/70 md:flex">
           <Link to="/" className="transition-colors hover:text-chicken-dark" activeOptions={{ exact: true }} activeProps={{ className: "text-chicken-dark" }}>

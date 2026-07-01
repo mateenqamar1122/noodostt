@@ -2,6 +2,11 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { useCart, cartLine, cartTotals } from "@/lib/cart-store";
 import { formatPKR } from "@/lib/format";
+import { supabase } from "@/integrations/supabase/client";
+
+const db = supabase as unknown as {
+  from: (t: string) => { insert: (v: Record<string, unknown>) => Promise<{ error: { message: string } | null }> };
+};
 
 export const Route = createFileRoute("/checkout")({
   head: () => ({ meta: [{ title: "Checkout — Noodle World" }, { name: "description", content: "Complete your noodle adventure." }] }),
@@ -19,16 +24,30 @@ function Checkout() {
   const [showSuccess, setShowSuccess] = useState(false);
   const [orderName, setOrderName] = useState("Slurper");
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const name = String(formData.get("name") || "Slurper");
     setOrderName(name);
     setSubmitting(true);
-    setTimeout(() => {
-      setSubmitting(false);
-      setShowSuccess(true);
-    }, 700);
+    const { data: userData } = await supabase.auth.getUser();
+    const orderItems = items.map((it) => {
+      const { product } = cartLine(it);
+      return { slug: it.slug, qty: it.qty, name: product?.name };
+    });
+    await db.from("orders").insert({
+      user_id: userData.user?.id ?? null,
+      customer_name: name,
+      email: String(formData.get("email") || ""),
+      address: String(formData.get("address") || ""),
+      city: String(formData.get("city") || ""),
+      zip: String(formData.get("zip") || ""),
+      payment_method: payMethod,
+      items: orderItems,
+      subtotal, shipping, total,
+    });
+    setSubmitting(false);
+    setShowSuccess(true);
   };
 
   if (count === 0) {

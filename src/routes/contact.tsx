@@ -3,8 +3,13 @@ import { MapPin, Phone, Mail, Briefcase, Package, Send, Building2, Sparkles } fr
 import { useState } from "react";
 import { z } from "zod";
 import dongdaBuilding from "@/assets/dongda-building.png";
+import { supabase } from "@/integrations/supabase/client";
 
-export const Route = createFileRoute("/contact")({ 
+const db = supabase as unknown as {
+  from: (t: string) => { insert: (v: Record<string, unknown>) => Promise<{ error: { message: string } | null }> };
+};
+
+export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
       { title: "Contact Us — Noodle World Business Inquiries" },
@@ -35,8 +40,9 @@ const PHONES = [
 function ContactPage() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [sent, setSent] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
-  function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const fd = new FormData(e.currentTarget);
     const data = Object.fromEntries(fd.entries());
@@ -48,17 +54,20 @@ function ContactPage() {
       return;
     }
     setErrors({});
-    const body = encodeURIComponent(
-      `Business Inquiry from ${parsed.data.name}\n\n` +
-      `Company: ${parsed.data.company ?? "-"}\n` +
-      `Email: ${parsed.data.email}\n` +
-      `Phone: ${parsed.data.phone}\n` +
-      `Type: ${parsed.data.inquiryType}\n` +
-      `Quantity: ${parsed.data.quantity ?? "-"}\n\n` +
-      `${parsed.data.message}`
-    );
-    window.location.href = `mailto:z534769076@gmail.com?subject=${encodeURIComponent("Business Inquiry — " + parsed.data.name)}&body=${body}`;
+    setSubmitting(true);
+    const { error } = await db.from("business_inquiries").insert({
+      name: parsed.data.name,
+      company: parsed.data.company ?? null,
+      email: parsed.data.email,
+      phone: parsed.data.phone,
+      inquiry_type: parsed.data.inquiryType,
+      quantity: parsed.data.quantity ?? null,
+      message: parsed.data.message,
+    });
+    setSubmitting(false);
+    if (error) { setErrors({ message: "Could not send: " + error.message }); return; }
     setSent(true);
+    (e.target as HTMLFormElement).reset();
   }
 
   return (
@@ -162,10 +171,10 @@ function ContactPage() {
               </div>
             </div>
 
-            <button type="submit" className="mt-6 inline-flex items-center gap-2 rounded-full bg-chicken-dark px-6 py-3 font-display font-bold text-white shadow-lg transition-transform hover:scale-105 active:scale-95">
-              <Send className="size-4" /> Send Inquiry
+            <button type="submit" disabled={submitting} className="mt-6 inline-flex items-center gap-2 rounded-full bg-chicken-dark px-6 py-3 font-display font-bold text-white shadow-lg transition-transform hover:scale-105 active:scale-95 disabled:opacity-60">
+              <Send className="size-4" /> {submitting ? "Sending…" : "Send Inquiry"}
             </button>
-            {sent && <p className="mt-3 text-sm font-semibold text-chicken-dark">Opening your email app… thanks!</p>}
+            {sent && <p className="mt-3 rounded-xl bg-chicken-soft px-3 py-2 text-sm font-semibold text-chicken-dark">✓ Thanks! Our team will get back to you within 1 business day.</p>}
           </form>
         </div>
       </section>
