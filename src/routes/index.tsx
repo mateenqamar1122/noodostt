@@ -103,7 +103,7 @@ function Index() {
               <span className="rounded-full bg-chicken-soft px-4 py-1 text-sm font-bold text-chicken-dark">THE DAILY SLURP</span>
               <h2 className="mt-3 font-display text-5xl font-bold">Featured Bowls</h2>
             </div>
-            <Link to="/world/$slug" params={{ slug: "chicken" }} className="font-display font-bold text-chicken-dark underline decoration-chicken decoration-4 underline-offset-4">
+             <Link to="/products" className="font-display font-bold text-chicken-dark underline decoration-chicken decoration-4 underline-offset-4">
               See all products →
             </Link>
           </div>

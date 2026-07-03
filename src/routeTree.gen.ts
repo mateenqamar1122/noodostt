@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as ProductsRouteImport } from './routes/products'
 import { Route as OurVisionRouteImport } from './routes/our-vision'
 import { Route as OrderConfirmationRouteImport } from './routes/order-confirmation'
 import { Route as ContactRouteImport } from './routes/contact'
@@ -20,6 +21,11 @@ import { Route as WorldSlugRouteImport } from './routes/world.$slug'
 import { Route as ProductSlugRouteImport } from './routes/product.$slug'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 
+const ProductsRoute = ProductsRouteImport.update({
+  id: '/products',
+  path: '/products',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const OurVisionRoute = OurVisionRouteImport.update({
   id: '/our-vision',
   path: '/our-vision',
@@ -77,6 +83,7 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/order-confirmation': typeof OrderConfirmationRoute
   '/our-vision': typeof OurVisionRoute
+  '/products': typeof ProductsRoute
   '/admin': typeof AuthenticatedAdminRoute
   '/product/$slug': typeof ProductSlugRoute
   '/world/$slug': typeof WorldSlugRoute
@@ -88,6 +95,7 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/order-confirmation': typeof OrderConfirmationRoute
   '/our-vision': typeof OurVisionRoute
+  '/products': typeof ProductsRoute
   '/admin': typeof AuthenticatedAdminRoute
   '/product/$slug': typeof ProductSlugRoute
   '/world/$slug': typeof WorldSlugRoute
@@ -101,6 +109,7 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/order-confirmation': typeof OrderConfirmationRoute
   '/our-vision': typeof OurVisionRoute
+  '/products': typeof ProductsRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
   '/product/$slug': typeof ProductSlugRoute
   '/world/$slug': typeof WorldSlugRoute
@@ -114,6 +123,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/order-confirmation'
     | '/our-vision'
+    | '/products'
     | '/admin'
     | '/product/$slug'
     | '/world/$slug'
@@ -125,6 +135,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/order-confirmation'
     | '/our-vision'
+    | '/products'
     | '/admin'
     | '/product/$slug'
     | '/world/$slug'
@@ -137,6 +148,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/order-confirmation'
     | '/our-vision'
+    | '/products'
     | '/_authenticated/admin'
     | '/product/$slug'
     | '/world/$slug'
@@ -150,12 +162,20 @@ export interface RootRouteChildren {
   ContactRoute: typeof ContactRoute
   OrderConfirmationRoute: typeof OrderConfirmationRoute
   OurVisionRoute: typeof OurVisionRoute
+  ProductsRoute: typeof ProductsRoute
   ProductSlugRoute: typeof ProductSlugRoute
   WorldSlugRoute: typeof WorldSlugRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/products': {
+      id: '/products'
+      path: '/products'
+      fullPath: '/products'
+      preLoaderRoute: typeof ProductsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/our-vision': {
       id: '/our-vision'
       path: '/our-vision'
@@ -248,6 +268,7 @@ const rootRouteChildren: RootRouteChildren = {
   ContactRoute: ContactRoute,
   OrderConfirmationRoute: OrderConfirmationRoute,
   OurVisionRoute: OurVisionRoute,
+  ProductsRoute: ProductsRoute,
   ProductSlugRoute: ProductSlugRoute,
   WorldSlugRoute: WorldSlugRoute,
 }
