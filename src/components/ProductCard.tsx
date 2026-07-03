@@ -27,11 +27,8 @@ export function ProductCard({ product }: { product: Product }) {
             loading="lazy"
             width={600}
             height={600}
-            className="size-4/5 object-contain opacity-50 grayscale"
+            className="size-4/5 object-contain transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-6"
           />
-          <span className="absolute inset-x-4 top-1/2 -translate-y-1/2 -rotate-6 rounded-2xl bg-ink/85 py-2 text-center font-display text-lg font-bold text-white">
-            Coming Soon
-          </span>
         </div>
       ) : (
         <Link
@@ -62,21 +59,13 @@ export function ProductCard({ product }: { product: Product }) {
         </div>
         <p className="mb-5 text-sm text-ink/60">{product.blurb}</p>
       </div>
-      {product.comingSoon ? (
-        <button
-          disabled
-          className="flex w-full cursor-not-allowed items-center justify-center gap-2 rounded-2xl bg-ink/10 py-3 font-display font-bold text-ink/50"
-        >
-          Notify Me Soon
-        </button>
-      ) : (
-        <button
-          onClick={() => add(product.slug)}
-          className={`flex w-full items-center justify-center gap-2 rounded-2xl py-3 font-display font-bold transition-transform active:translate-y-1 ${flavor.buttonClass}`}
-        >
-          <Plus className="size-4" /> Add to Basket
-        </button>
-      )}
+      <button
+        onClick={() => add(product.slug)}
+        disabled={product.comingSoon}
+        className={`flex w-full items-center justify-center gap-2 rounded-2xl py-3 font-display font-bold transition-transform active:translate-y-1 ${product.comingSoon ? "cursor-not-allowed bg-ink/10 text-ink/50" : flavor.buttonClass}`}
+      >
+        <Plus className="size-4" /> Add to Basket
+      </button>
     </div>
   );
 }

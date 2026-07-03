@@ -19,7 +19,8 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
-  const featured = PRODUCTS.filter((p) => p.badge);
+  // const featured = PRODUCTS.filter((p) => p.badge);
+  const featured = PRODUCTS;
   return (
     <div>
       {/* HERO */}
