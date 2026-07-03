@@ -125,8 +125,14 @@ function ContactPage() {
                 <span className="grid size-10 place-items-center rounded-full bg-beef/20 text-beef"><Mail className="size-5" /></span>
                 <h3 className="font-display text-xl font-bold">Email</h3>
               </div>
-              <a href="mailto:z534769076@gmail.com" className="font-display font-bold text-ink hover:text-chicken-dark">
+              <a href="mailto:z534769076@gmail.com" className="font-display font-bold text-ink hover:text-chicken-dark  [text-orientation:mixed]">
                 z534769076@gmail.com
+                shoaibalimirani@noodost.com 
+                dongdaofficial88@noodost.com 
+                m.talha@noodost.com
+                
+                 
+               
               </a>
               <p className="mt-2 text-sm text-ink/60">We reply to business inquiries within 1 business day.</p>
             </div>
