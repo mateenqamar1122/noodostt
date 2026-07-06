@@ -6,16 +6,25 @@ import dongdaBuilding from "@/assets/dongda-building.png";
 import { supabase } from "@/integrations/supabase/client";
 
 const db = supabase as unknown as {
-  from: (t: string) => { insert: (v: Record<string, unknown>) => Promise<{ error: { message: string } | null }> };
+  from: (t: string) => {
+    insert: (v: Record<string, unknown>) => Promise<{ error: { message: string } | null }>;
+  };
 };
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
       { title: "Contact Us — Noodle World Business Inquiries" },
-      { name: "description", content: "Get in touch with Noodle World for bulk orders, distribution, and business inquiries across Pakistan." },
+      {
+        name: "description",
+        content:
+          "Get in touch with Noodle World for bulk orders, distribution, and business inquiries across Pakistan.",
+      },
       { property: "og:title", content: "Contact Us — Noodle World" },
-      { property: "og:description", content: "Bulk orders & business inquiries. Reach our team in Karachi, Pakistan." },
+      {
+        property: "og:description",
+        content: "Bulk orders & business inquiries. Reach our team in Karachi, Pakistan.",
+      },
     ],
   }),
   component: ContactPage,
@@ -49,7 +58,9 @@ function ContactPage() {
     const parsed = schema.safeParse(data);
     if (!parsed.success) {
       const errs: Record<string, string> = {};
-      parsed.error.issues.forEach((i) => { errs[i.path[0] as string] = i.message; });
+      parsed.error.issues.forEach((i) => {
+        errs[i.path[0] as string] = i.message;
+      });
       setErrors(errs);
       return;
     }
@@ -65,7 +76,10 @@ function ContactPage() {
       message: parsed.data.message,
     });
     setSubmitting(false);
-    if (error) { setErrors({ message: "Could not send: " + error.message }); return; }
+    if (error) {
+      setErrors({ message: "Could not send: " + error.message });
+      return;
+    }
     setSent(true);
     (e.target as HTMLFormElement).reset();
   }
@@ -85,7 +99,8 @@ function ContactPage() {
             Let's Talk <span className="text-chicken-dark">Bulk & Business</span>
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-ink/70">
-            Wholesale, distribution, retail partnerships and corporate orders — our team in Karachi is ready to slurp into business with you.
+            Wholesale, distribution, retail partnerships and corporate orders — our team in Karachi
+            is ready to slurp into business with you.
           </p>
         </div>
       </section>
@@ -97,24 +112,37 @@ function ContactPage() {
           <div className="lg:col-span-2 space-y-5">
             <div className="rounded-3xl border-4 border-chicken-soft bg-white p-6 shadow-[0_8px_30px_-12px_rgba(120,60,0,0.25)]">
               <div className="mb-3 flex items-center gap-3">
-                <span className="grid size-10 place-items-center rounded-full bg-chicken/30 text-chicken-dark"><MapPin className="size-5" /></span>
+                <span className="grid size-10 place-items-center rounded-full bg-chicken/30 text-chicken-dark">
+                  <MapPin className="size-5" />
+                </span>
                 <h3 className="font-display text-xl font-bold">Head Office</h3>
               </div>
               <p className="text-ink/70 leading-relaxed">
-                Plot# 351/4, 4th Floor,<br />Korangi Creek, DHA Korangi,<br />Karachi, Pakistan
+                Plot# 351/4, 4th Floor,
+                <br />
+                Korangi Creek, DHA Korangi,
+                <br />
+                Karachi, Pakistan
               </p>
             </div>
 
             <div className="rounded-3xl border-4 border-chicken-soft bg-white p-6 shadow-[0_8px_30px_-12px_rgba(120,60,0,0.25)]">
               <div className="mb-3 flex items-center gap-3">
-                <span className="grid size-10 place-items-center rounded-full bg-spicy/20 text-spicy"><Phone className="size-5" /></span>
+                <span className="grid size-10 place-items-center rounded-full bg-spicy/20 text-spicy">
+                  <Phone className="size-5" />
+                </span>
                 <h3 className="font-display text-xl font-bold">Call Us</h3>
               </div>
               <ul className="space-y-2">
                 {PHONES.map((p) => (
                   <li key={p.number} className="flex items-center justify-between gap-2">
                     <span className="text-sm font-semibold text-ink/60">{p.label}</span>
-                    <a href={p.href} className="font-display font-bold text-ink hover:text-chicken-dark">{p.number}</a>
+                    <a
+                      href={p.href}
+                      className="font-display font-bold text-ink hover:text-chicken-dark"
+                    >
+                      {p.number}
+                    </a>
                   </li>
                 ))}
               </ul>
@@ -122,19 +150,57 @@ function ContactPage() {
 
             <div className="rounded-3xl border-4 border-chicken-soft bg-white p-6 shadow-[0_8px_30px_-12px_rgba(120,60,0,0.25)]">
               <div className="mb-3 flex items-center gap-3">
-                <span className="grid size-10 place-items-center rounded-full bg-beef/20 text-beef"><Mail className="size-5" /></span>
+                <span className="grid size-10 place-items-center rounded-full bg-beef/20 text-beef">
+                  <Mail className="size-5" />
+                </span>
                 <h3 className="font-display text-xl font-bold">Email</h3>
               </div>
-              <a href="mailto:z534769076@gmail.com" className="font-display font-bold text-ink hover:text-chicken-dark  [text-orientation:mixed]">
-                z534769076@gmail.com
-                shoaibalimirani@noodost.com 
-                dongdaofficial88@noodost.com 
-                m.talha@noodost.com
-                
-                 
-               
-              </a>
-              <p className="mt-2 text-sm text-ink/60">We reply to business inquiries within 1 business day.</p>
+              <div className="flex flex-col gap-1">
+                <a
+                  href="mailto:dongdaofficial88@noodost.com"
+                  className="font-display font-bold text-ink hover:text-chicken-dark"
+                >
+                  dongdaofficial88@noodost.com
+                </a>
+
+                <a
+                  href="mailto:z534769076@gmail.com"
+                  className="font-display font-bold text-ink hover:text-chicken-dark"
+                >
+                  z534769076@gmail.com
+                </a>
+
+                <a
+                  href="mailto:shoaibalimirani@noodost.com"
+                  className="font-display font-bold text-ink hover:text-chicken-dark"
+                >
+                  shoaibalimirani@noodost.com
+                </a>
+
+                <a
+                  href="mailto:m.talha@noodost.com"
+                  className="font-display font-bold text-ink hover:text-chicken-dark"
+                >
+                  m.talha@noodost.com
+                </a>
+
+                <a
+                  href="mailto:iftikharlashari@noodost.com"
+                  className="font-display font-bold text-ink hover:text-chicken-dark"
+                >
+                  iftikharlashari@noodost.com
+                </a>
+
+                <a
+                  href="mailto:arifshaikh@noodost.com"
+                  className="font-display font-bold text-ink hover:text-chicken-dark"
+                >
+                  arifshaikh@noodost.com
+                </a>
+              </div>
+              <p className="mt-2 text-sm text-ink/60">
+                We reply to business inquiries within 1 business day.
+              </p>
             </div>
 
             <div className="rounded-3xl bg-ink p-6 text-white">
@@ -142,12 +208,18 @@ function ContactPage() {
                 <Package className="size-5 text-chicken" />
                 <h3 className="font-display text-lg font-bold">Minimum Bulk Order</h3>
               </div>
-              <p className="text-sm text-white/80">Cartons start at 24 units. Flexible pricing for distributors, supermarkets, restaurants & corporate gifting.</p>
+              <p className="text-sm text-white/80">
+                Cartons start at 24 units. Flexible pricing for distributors, supermarkets,
+                restaurants & corporate gifting.
+              </p>
             </div>
           </div>
 
           {/* FORM */}
-          <form onSubmit={onSubmit} className="lg:col-span-3 rounded-3xl border-4 border-chicken-soft bg-cream p-8 shadow-[0_8px_30px_-12px_rgba(120,60,0,0.25)]">
+          <form
+            onSubmit={onSubmit}
+            className="lg:col-span-3 rounded-3xl border-4 border-chicken-soft bg-cream p-8 shadow-[0_8px_30px_-12px_rgba(120,60,0,0.25)]"
+          >
             <div className="mb-6 flex items-center gap-3">
               <Building2 className="size-6 text-chicken-dark" />
               <h2 className="font-display text-2xl font-bold">Send a Business Inquiry</h2>
@@ -161,26 +233,51 @@ function ContactPage() {
 
               <div className="md:col-span-1">
                 <label className="mb-1 block text-sm font-bold text-ink/70">Inquiry Type *</label>
-                <select name="inquiryType" defaultValue="bulk" className="w-full rounded-2xl border-2 border-chicken-soft bg-white px-4 py-3 font-medium focus:border-chicken focus:outline-none">
+                <select
+                  name="inquiryType"
+                  defaultValue="bulk"
+                  className="w-full rounded-2xl border-2 border-chicken-soft bg-white px-4 py-3 font-medium focus:border-chicken focus:outline-none"
+                >
                   <option value="bulk">Bulk Order</option>
                   <option value="distribution">Distribution / Wholesale</option>
                   <option value="retail">Retail Partnership</option>
                   <option value="other">Other</option>
                 </select>
               </div>
-              <Field name="quantity" label="Estimated Quantity (cartons)" placeholder="e.g. 200 cartons" error={errors.quantity} />
+              <Field
+                name="quantity"
+                label="Estimated Quantity (cartons)"
+                placeholder="e.g. 200 cartons"
+                error={errors.quantity}
+              />
 
               <div className="md:col-span-2">
                 <label className="mb-1 block text-sm font-bold text-ink/70">Message *</label>
-                <textarea name="message" rows={5} maxLength={1500} placeholder="Tell us about your business and what you need…" className="w-full rounded-2xl border-2 border-chicken-soft bg-white px-4 py-3 font-medium focus:border-chicken focus:outline-none" />
-                {errors.message && <p className="mt-1 text-sm font-semibold text-spicy">{errors.message}</p>}
+                <textarea
+                  name="message"
+                  rows={5}
+                  maxLength={1500}
+                  placeholder="Tell us about your business and what you need…"
+                  className="w-full rounded-2xl border-2 border-chicken-soft bg-white px-4 py-3 font-medium focus:border-chicken focus:outline-none"
+                />
+                {errors.message && (
+                  <p className="mt-1 text-sm font-semibold text-spicy">{errors.message}</p>
+                )}
               </div>
             </div>
 
-            <button type="submit" disabled={submitting} className="mt-6 inline-flex items-center gap-2 rounded-full bg-chicken-dark px-6 py-3 font-display font-bold text-white shadow-lg transition-transform hover:scale-105 active:scale-95 disabled:opacity-60">
+            <button
+              type="submit"
+              disabled={submitting}
+              className="mt-6 inline-flex items-center gap-2 rounded-full bg-chicken-dark px-6 py-3 font-display font-bold text-white shadow-lg transition-transform hover:scale-105 active:scale-95 disabled:opacity-60"
+            >
               <Send className="size-4" /> {submitting ? "Sending…" : "Send Inquiry"}
             </button>
-            {sent && <p className="mt-3 rounded-xl bg-chicken-soft px-3 py-2 text-sm font-semibold text-chicken-dark">✓ Thanks! Our team will get back to you within 1 business day.</p>}
+            {sent && (
+              <p className="mt-3 rounded-xl bg-chicken-soft px-3 py-2 text-sm font-semibold text-chicken-dark">
+                ✓ Thanks! Our team will get back to you within 1 business day.
+              </p>
+            )}
           </form>
         </div>
       </section>
@@ -208,10 +305,11 @@ function ContactPage() {
                 </h2>
                 <p className="mt-5 text-base leading-relaxed text-ink/75">
                   <span className="font-bold text-ink">NOODOST</span> is a unique noodle brand under{" "}
-                  <span className="font-bold text-ink">DONG DA (Pvt) Ltd</span>, inspired by the strong
-                  friendship between China and Pakistan. The brand name is derived from the combination
-                  of <span className="italic">'Noodle'</span> and <span className="italic">'Dost'</span> (Friend),
-                  symbolizing quality, taste, cultural connection, and a shared spirit of partnership.
+                  <span className="font-bold text-ink">DONG DA (Pvt) Ltd</span>, inspired by the
+                  strong friendship between China and Pakistan. The brand name is derived from the
+                  combination of <span className="italic">'Noodle'</span> and{" "}
+                  <span className="italic">'Dost'</span> (Friend), symbolizing quality, taste,
+                  cultural connection, and a shared spirit of partnership.
                 </p>
                 <p className="mt-4 text-base leading-relaxed text-ink/75">
                   NOODOST aims to deliver delicious, high-quality noodle products while building a
@@ -236,7 +334,19 @@ function ContactPage() {
   );
 }
 
-function Field({ name, label, type = "text", placeholder, error }: { name: string; label: string; type?: string; placeholder?: string; error?: string }) {
+function Field({
+  name,
+  label,
+  type = "text",
+  placeholder,
+  error,
+}: {
+  name: string;
+  label: string;
+  type?: string;
+  placeholder?: string;
+  error?: string;
+}) {
   return (
     <div>
       <label className="mb-1 block text-sm font-bold text-ink/70">{label}</label>
