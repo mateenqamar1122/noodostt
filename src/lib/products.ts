@@ -34,13 +34,17 @@ import worldChickenImg from "@/assets/world-chicken.jpg";
 import worldBeefImg from "@/assets/world-beef.jpg";
 import worldSpicyImg from "@/assets/world-spicy.jpg";
 import productSpicyImg from "@/assets/product-spicy.png";
-// import noodostChickenAsset from "@/assets/noodost-spicy-chicken.png.asset.json";
-// import noodostBeefAsset from "@/assets/noodost-spicy-beef.png.asset.json";
 import noodostChickenAsset from "@/assets/noodost-spicy-chicken.png";
 import noodostBeefAsset from "@/assets/noodost-spicy-beef.png";
 import chickenFlavorAsset from "@/assets/noodost-chicken-flavor.png";
 import spicyCurryAsset from "@/assets/noodost-spicy-curry.png";
 import beefFlavorAsset from "@/assets/noodost-beef-flavor.png";
+import spicyCurryAsset120g from "@/assets/noodost-spicy-curry_120g.png";
+import beefFlavorAsset120g from "@/assets/noodost-beef_120g.png";
+import chickenFlavorAsset120g from "@/assets/noodost-chicken_120g.png";
+import noodostBeefAsset120g from "@/assets/noodost-spicy-beef_120g.png";
+import noodostChickenAsset120g from "@/assets/noodost-spicy-chicken_120g.png";
+
 
 export const FLAVORS: Record<FlavorSlug, Flavor> = {
   chicken: {
@@ -94,14 +98,15 @@ export const FLAVOR_LIST: Flavor[] = [FLAVORS.chicken, FLAVORS.beef, FLAVORS.spi
 
 export const PRODUCTS: Product[] = [
   { slug: "spicy-chicken-noodles", flavor: "chicken", name: "Spicy Chicken Noodles", blurb: "Instant rich chicken flavour noodles — ready in 3 minutes. 80g pack.", price: 80, image: noodostChickenAsset, badge: "Most Loved" },
-  { slug: "spicy-beef-noodles", flavor: "beef", name: "Spicy Beef Noodles", blurb: "Instant rich beef flavour noodles — ready in 3 minutes. 80g pack.", price: 80, image: noodostBeefAsset, badge: "New" },
-  // { slug: "chicken-family-pack", flavor: "chicken", name: "Spicy Chicken Family Pack", blurb: "A family-size bundle of our chicken noodles.", price: 280, image: noodostChickenAsset, comingSoon: true },
-  // { slug: "beef-family-pack", flavor: "beef", name: "Spicy Beef Family Pack", blurb: "Boss-level savoury noodles in a family bundle.", price: 280, image: noodostBeefAsset, comingSoon: true },
-  // { slug: "rocket-fuel-cup", flavor: "spicy", name: "2X Spicy Masala Noodles", blurb: "Three-alarm spice with a smoky finish.", price: 60, image: productSpicyImg, comingSoon: true },
-  // { slug: "volcano-mega-pack", flavor: "spicy", name: "Volcano Mega Pack", blurb: "Six bowls of fiery, slurpable adventure.", price: 320, image: productSpicyImg, comingSoon: true },
-  { slug: "chicken-flavor-noodles", flavor: "chicken", name: "Rich Chicken Flavor Noodles", blurb: "Classic rich chicken flavour — 120g family pack. Ready in 3 minutes.", price: 80, image: chickenFlavorAsset, comingSoon: true },
+  { slug: "spicy-beef-noodles", flavor: "beef", name: "Spicy Beef Noodles", blurb: "Instant rich beef flavour noodles — ready in 3 minutes. 80g pack.", price: 80, image: noodostBeefAsset, badge: "Most loved" },
+  { slug: "spicy-chicken-noodles-120g", flavor: "chicken", name: "Spicy Chicken Noodles", blurb: "Instant rich chicken flavour noodles — ready in 3 minutes. 120g pack.", price: 120, image: noodostChickenAsset120g, badge: "Most Loved" , comingSoon: true },
+  { slug: "spicy-beef-noodles_120g", flavor: "beef", name: "Spicy Beef Noodles", blurb: "Instant rich beef flavour noodles — ready in 3 minutes. 120g pack.", price: 120, image: noodostBeefAsset120g, badge: "Most loved", comingSoon: true  },
+  { slug: "chicken-flavor-noodles", flavor: "chicken", name: "Rich Chicken Flavor Noodles", blurb: "Classic rich chicken flavour — 80g family pack. Ready in 3 minutes.", price: 80, image: chickenFlavorAsset, comingSoon: true },
+  { slug: "chicken-flavor-noodles-120g", flavor: "chicken", name: "Rich Chicken Flavor Noodles", blurb: "Classic rich chicken flavour — 120g family pack. Ready in 3 minutes.", price: 120, image: chickenFlavorAsset120g, comingSoon: true },
   { slug: "beef-flavor-noodles", flavor: "beef", name: "Rich Beef Flavor Noodles", blurb: "Deep savoury beef flavour — 80g pack. Ready in 3 minutes.", price: 80, image: beefFlavorAsset, comingSoon: true },
+  { slug: "beef-flavor-noodles-120g", flavor: "beef", name: "Rich Beef Flavor Noodles", blurb: "Deep savoury beef flavour — 120g pack. Ready in 3 minutes.", price: 120, image: beefFlavorAsset120g, comingSoon: true },
   { slug: "spicy-curry-noodles", flavor: "spicy", name: "Spicy Curry Noodles 2X", blurb: "Double the heat — rich masala curry, 80g pack. Ready in 3 minutes.", price: 80, image: spicyCurryAsset, comingSoon: true },
+  { slug: "spicy-curry-noodles-120g", flavor: "spicy", name: "Spicy Curry Noodles 2X", blurb: "Double the heat — rich masala curry, 120g pack. Ready in 3 minutes.", price: 120, image: spicyCurryAsset120g, comingSoon: true },
 ];
 
 export function getProduct(slug: string) {

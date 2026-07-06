@@ -39,14 +39,18 @@ export function SiteHeader() {
           <Link to="/" className="transition-colors hover:text-chicken-dark" activeOptions={{ exact: true }} activeProps={{ className: "text-chicken-dark" }}>
             Home
           </Link>
-          <Link to="/world/$slug" params={{ slug: "chicken" }} className="transition-colors hover:text-chicken-dark">
+          <Link to="/world/$slug" params={{ slug: "chicken" }} className="transition-colors hover:text-chicken-dark" activeProps={{ className: "text-chicken-dark" }}>
             Worlds
           </Link>
           <Link to="/our-vision" className="transition-colors hover:text-chicken-dark" activeProps={{ className: "text-chicken-dark" }}>
             Our Vision
           </Link>
-          <a href="/#featured" className="transition-colors hover:text-chicken-dark">Shop</a>
-          <a href="/#why" className="transition-colors hover:text-chicken-dark">Why Us</a>
+          <Link to="/products" className="transition-colors hover:text-chicken-dark" activeProps={{ className: "text-chicken-dark" }}>
+            Shop
+          </Link>
+          <Link to="/contact" className="transition-colors hover:text-chicken-dark" activeProps={{ className: "text-chicken-dark" }}>
+            contact
+          </Link>
         </nav>
 
         <button
